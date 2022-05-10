@@ -284,6 +284,7 @@ class Asteroids:
             elif asteroid[0].center[1] < -asteroid[0].rect.height//2:
                 asteroid[0].center = [asteroid[0].center[0], self.height + asteroid[0].rect.height//2]
 
+            collision = False
             # Check for bullet-asteroid collisions
             for j, bullet in reversed(list(enumerate(bullets))):
                 if asteroid[0].collidecircle(bullet[0]):
@@ -294,7 +295,11 @@ class Asteroids:
                     self.asteroids.pop(index)
                     bullets.pop(j)
                     shake = True
+                    collision = True
                     break
+
+            if collision:
+                continue
 
             if score >= 10000*self.score_count:
                 player.health += 1
